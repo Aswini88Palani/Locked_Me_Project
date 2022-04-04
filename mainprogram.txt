@@ -1,0 +1,190 @@
+package Lockers;
+
+import java.util.Arrays;
+import java.util.Scanner;
+import java.io.File;
+
+
+public class LockersPvtLtd {
+	public static void main(String[] args) {
+		
+		WelcomeScreen ws = new WelcomeScreen();
+		ws.setApplicationname("Lockers Pvt Ltd");
+		ws.setDeveloperinfo("Aswini Palani");
+		
+		System.out.println("COMPANY NAME: "+ws.getApplicationname());
+		System.out.println("DESIGNED & DEVELOPED BY: "+ws.getDeveloperinfo());
+		System.out.println("**************************************");
+		
+		String Directory;
+	    File foldername;
+		
+		Directory = System.getProperty("user.dir");
+	    foldername = new File(Directory);
+	    
+	    if (foldername.exists())
+	        foldername.mkdirs();
+	    System.out.println("DIRECTORY : "+ foldername.getAbsolutePath());
+	    System.out.println("*************************************************************");
+	    System.out.println("");
+	    Scanner sc = new Scanner(System.in);
+        int ch = 0;
+	    
+	    do {
+			System.out.println("MAIN MENU:");
+			System.out.println("----------");
+			System.out.println("1. File List");
+			System.out.println("2. Manage Files");
+			System.out.println("3. Exit the Program");
+			System.out.println(" ");
+			System.out.print("Enter your choice: ");
+			
+			try {
+				ch = Integer.parseInt(sc.nextLine());
+			} catch (NumberFormatException e) {
+				System.out.println("Only Numbers are Allowed!!");
+				System.out.println("");
+				continue;
+			}
+			System.out.println("");
+			
+			switch (ch) {
+			case 1:
+								
+				File dir = new File(Directory);
+				
+			    if(dir.list().length==0) { 
+			    	System.out.println("The folder is empty!");
+			    }else {
+			    	File[] files = dir.listFiles();
+			    	System.out.println("The files in the "+ foldername +" are:");
+			    	System.out.println("");
+			    	
+			    Arrays.sort(files);
+		        for(File file:files)
+			      {
+			        System.out.println(file.getName());				   
+			        }
+	            }
+				System.out.println("");
+				break;
+				
+			case 2:
+				do {
+					System.out.println("MANAGE FILES MENU:");
+					System.out.println("-----------------");
+					System.out.println("1. Add a File");
+					System.out.println("2. Delete a File");
+					System.out.println("3. Search a File");
+					System.out.println("4. Exit to Main Menu");
+					System.out.println("---------------------");
+					System.out.println("");
+					System.out.print("Enter your choice: ");
+
+					try {
+						ch = Integer.parseInt(sc.nextLine());
+					} catch (NumberFormatException e) {
+						System.out.println("Only numbers are Allowed!!");
+						System.out.println("");
+						continue;
+					}
+					System.out.println("");
+					
+					switch (ch) {
+					case 1:
+						  
+						System.out.println("Enter the Filename to be created: ");
+						String fileName = sc.nextLine();  
+						
+						try {
+							File file = new File(fileName);
+						  	 if (file.createNewFile()) {
+						  	  System.out.println("File created: " + file.getName());
+						  	  System.out.println("Absolute path: " + file.getAbsolutePath());
+						  	  System.out.println("");
+						  	  } else {
+						  	  System.out.println("This File Already Exits! Please enter another file name!");
+						  	  }
+						} catch(Exception e) {
+						      e.printStackTrace();
+						    }
+						break;
+					
+					case 2:
+						System.out.print("Enter the Filename to be deleted: ");
+						System.out.println("");
+						
+						try {
+							File deletefile = new File(Directory);
+							String filetodelete = sc.nextLine();
+							File[] files=deletefile.listFiles();
+							int flag=0;
+							
+					        for (File file : files) {
+					            String name = file.getName();
+					            if (name.equals(filetodelete)) {
+					            	file.delete();
+				                    System.out.println("File " +filetodelete+ " is deleted");
+				                    System.out.println("");
+				                    flag=1;
+				                } 	
+						}		if(flag==0) {
+										System.out.println("File Not Found! Delete operation failed!");
+										System.out.println("");
+							}
+						} 	catch(Exception ex) {
+							System.out.println(ex.getMessage());
+						}
+						break;
+
+					case 3:
+						System.out.print("Enter the Filename to search: ");
+						System.out.println("");
+						
+						try {
+							File directory = new File(Directory);
+							String filetosearch = sc.nextLine();
+							File[] files=directory.listFiles();
+							int flag=0;
+							
+					        for (File file : files) {
+					            String name = file.getName();
+					            if (name.equals(filetosearch)) {
+				                    System.out.println("FOUND : File " + filetosearch + " Exists at " + foldername);
+				                    System.out.println("");
+				                    flag=1;
+				                } 	
+						}		if(flag==0) {
+										System.out.println("File Not Found! (FNF)!");
+										System.out.println("");
+							}
+						} 	catch(Exception e) {
+							System.out.println(e.getMessage());
+						}
+						break;
+						
+					case 4:
+						System.out.println("Returning to Main Menu");
+						System.out.println("");
+						break;
+					default:
+						System.out.println("Incorrect option! Try again!");
+						System.out.println("");
+						break;
+					}
+				} 
+				while (ch!= 4);
+				break;
+
+			case 3:
+				System.out.println("Exiting the Program! Thamk You for using LockedMe.com!");
+				break;
+
+			default:
+				System.out.println("Incorrect Input! Please try again!!");
+				break;
+			}
+		} while (ch != 3);
+
+	}
+}
