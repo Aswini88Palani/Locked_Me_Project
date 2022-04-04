@@ -1,0 +1,23 @@
+package Lockers;
+
+public class WelcomeScreen {
+	private String Applicationname;
+	private String Developerinfo;
+
+	public WelcomeScreen() {
+	System.out.println("WELCOME SCREEN");
+	System.out.println("**************");
+	}
+	public String getApplicationname() {
+	return Applicationname;
+	}
+	public void setApplicationname(String Applicationname) {
+	this.Applicationname = Applicationname;
+	}
+	public String getDeveloperinfo() {
+	return Developerinfo;
+	}
+	public void setDeveloperinfo(String Developerinfo) {
+	this.Developerinfo = Developerinfo;
+}	
+}
